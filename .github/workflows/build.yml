@@ -42,6 +42,36 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: ${{ matrix.args }}
+
+      # Ad-hoc sign macOS app to prevent "damaged" error
+      - name: Sign macOS app
+        if: matrix.platform == 'macos-latest'
+        run: |
+          # Find and sign the .app bundle
+          APP_PATH=$(find src-tauri/target -name "*.app" -type d | head -1)
+          if [ -n "$APP_PATH" ]; then
+            echo "Signing $APP_PATH"
+            codesign --force --deep --sign - "$APP_PATH"
+
+            # Recreate DMG with signed app
+            DMG_PATH=$(find src-tauri/target -name "*.dmg" -type f | head -1)
+            if [ -n "$DMG_PATH" ]; then
+              echo "Recreating DMG at $DMG_PATH"
+              DMG_DIR=$(dirname "$DMG_PATH")
+              DMG_NAME=$(basename "$DMG_PATH")
+              APP_NAME=$(basename "$APP_PATH")
+              APP_DIR=$(dirname "$APP_PATH")
+
+              # Remove old DMG
+              rm "$DMG_PATH"
+
+              # Create new DMG with signed app
+              hdiutil create -volname "Photo Tinder" -srcfolder "$APP_DIR" -ov -format UDZO "$DMG_PATH"
+
+              echo "Created signed DMG"
+            fi
+          fi
+
       - uses: actions/upload-artifact@v4
         with:
           name: photo-tinder-${{ matrix.name }}

@@ -13,13 +13,13 @@ A fast, keyboard-driven desktop app for triaging and ranking large photo collect
 
 | Platform | Download | Size |
 |----------|----------|------|
-| **Windows** | [Photo.Tinder_1.0.1_x64-setup.exe](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder_1.0.1_x64-setup.exe) | ~3 MB |
-| **Windows (MSI)** | [Photo.Tinder_1.0.1_x64_en-US.msi](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder_1.0.1_x64_en-US.msi) | ~3 MB |
-| **macOS (Apple Silicon)** | [Photo.Tinder_1.0.1_aarch64.dmg](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder_1.0.1_aarch64.dmg) | ~2 MB |
-| **macOS (Intel)** | [Photo.Tinder_1.0.1_x64.dmg](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder_1.0.1_x64.dmg) | ~2 MB |
-| **Linux (AppImage)** | [Photo.Tinder_1.0.1_amd64.AppImage](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder_1.0.1_amd64.AppImage) | ~73 MB |
-| **Linux (Debian/Ubuntu)** | [Photo.Tinder_1.0.1_amd64.deb](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder_1.0.1_amd64.deb) | ~2.5 MB |
-| **Linux (Fedora/RHEL)** | [Photo.Tinder-1.0.1-1.x86_64.rpm](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder-1.0.1-1.x86_64.rpm) | ~2.5 MB |
+| **Windows** | [Photo.Tinder_1.0.0_x64-setup.exe](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder_1.0.0_x64-setup.exe) | ~3 MB |
+| **Windows (MSI)** | [Photo.Tinder_1.0.0_x64_en-US.msi](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder_1.0.0_x64_en-US.msi) | ~3 MB |
+| **macOS (Apple Silicon)** | [Photo.Tinder_1.0.0_aarch64.dmg](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder_1.0.0_aarch64.dmg) | ~2 MB |
+| **macOS (Intel)** | [Photo.Tinder_1.0.0_x64.dmg](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder_1.0.0_x64.dmg) | ~2 MB |
+| **Linux (AppImage)** | [Photo.Tinder_1.0.0_amd64.AppImage](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder_1.0.0_amd64.AppImage) | ~73 MB |
+| **Linux (Debian/Ubuntu)** | [Photo.Tinder_1.0.0_amd64.deb](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder_1.0.0_amd64.deb) | ~2.5 MB |
+| **Linux (Fedora/RHEL)** | [Photo.Tinder-1.0.0-1.x86_64.rpm](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder-1.0.0-1.x86_64.rpm) | ~2.5 MB |
 
 ## Features
 
@@ -92,12 +92,12 @@ Browse and manage your sorted photos:
 
 **Debian/Ubuntu** - easiest option, just run:
 ```bash
-sudo dpkg -i ~/Downloads/Photo.Tinder_1.0.1_amd64.deb && sudo apt-get install -f
+sudo dpkg -i ~/Downloads/Photo.Tinder_1.0.0_amd64.deb && sudo apt-get install -f
 ```
 
 **Fedora/RHEL:**
 ```bash
-sudo rpm -i ~/Downloads/Photo.Tinder-1.0.1-1.x86_64.rpm
+sudo rpm -i ~/Downloads/Photo.Tinder-1.0.0-1.x86_64.rpm
 ```
 
 ### Linux (AppImage - Universal)
@@ -106,12 +106,12 @@ AppImages need to be made executable before running (browsers strip this for sec
 
 **One-liner to download and run:**
 ```bash
-curl -L https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder_1.0.1_amd64.AppImage -o ~/Photo-Tinder.AppImage && chmod +x ~/Photo-Tinder.AppImage && ~/Photo-Tinder.AppImage
+curl -L https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.1/Photo.Tinder_1.0.0_amd64.AppImage -o ~/Photo-Tinder.AppImage && chmod +x ~/Photo-Tinder.AppImage && ~/Photo-Tinder.AppImage
 ```
 
 **Or if already downloaded:**
 ```bash
-chmod +x ~/Downloads/Photo.Tinder_1.0.1_amd64.AppImage && ~/Downloads/Photo.Tinder_1.0.1_amd64.AppImage
+chmod +x ~/Downloads/Photo.Tinder_1.0.0_amd64.AppImage && ~/Downloads/Photo.Tinder_1.0.0_amd64.AppImage
 ```
 
 ## Building from Source

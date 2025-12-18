@@ -7,16 +7,19 @@ A fast, keyboard-driven desktop app for triaging and ranking large photo collect
 
 ## Download
 
-**[Download Latest Release](https://github.com/relaxis/photo-tinder-desktop/releases/latest)**
+**[View All Releases](https://github.com/relaxis/photo-tinder-desktop/releases)**
 
-| Platform | Download |
-|----------|----------|
-| Windows | [Photo Tinder.msi](https://github.com/relaxis/photo-tinder-desktop/releases/latest) |
-| macOS (Apple Silicon) | [Photo Tinder.dmg (arm64)](https://github.com/relaxis/photo-tinder-desktop/releases/latest) |
-| macOS (Intel) | [Photo Tinder.dmg (x64)](https://github.com/relaxis/photo-tinder-desktop/releases/latest) |
-| Linux | [Photo Tinder.AppImage](https://github.com/relaxis/photo-tinder-desktop/releases/latest) |
-| Linux (Debian/Ubuntu) | [photo-tinder.deb](https://github.com/relaxis/photo-tinder-desktop/releases/latest) |
-| Linux (Fedora/RHEL) | [photo-tinder.rpm](https://github.com/relaxis/photo-tinder-desktop/releases/latest) |
+### Latest Version (v1.0.0)
+
+| Platform | Download | Size |
+|----------|----------|------|
+| **Windows** | [Photo.Tinder_1.0.0_x64-setup.exe](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.0/Photo.Tinder_1.0.0_x64-setup.exe) | ~3 MB |
+| **Windows (MSI)** | [Photo.Tinder_1.0.0_x64_en-US.msi](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.0/Photo.Tinder_1.0.0_x64_en-US.msi) | ~3 MB |
+| **macOS (Apple Silicon)** | [Photo.Tinder_1.0.0_aarch64.dmg](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.0/Photo.Tinder_1.0.0_aarch64.dmg) | ~2 MB |
+| **macOS (Intel)** | [Photo.Tinder_1.0.0_x64.dmg](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.0/Photo.Tinder_1.0.0_x64.dmg) | ~2 MB |
+| **Linux (AppImage)** | [Photo.Tinder_1.0.0_amd64.AppImage](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.0/Photo.Tinder_1.0.0_amd64.AppImage) | ~73 MB |
+| **Linux (Debian/Ubuntu)** | [Photo.Tinder_1.0.0_amd64.deb](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.0/Photo.Tinder_1.0.0_amd64.deb) | ~2.5 MB |
+| **Linux (Fedora/RHEL)** | [Photo.Tinder-1.0.0-1.x86_64.rpm](https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.0/Photo.Tinder-1.0.0-1.x86_64.rpm) | ~2.5 MB |
 
 ## Features
 

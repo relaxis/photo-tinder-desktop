@@ -87,29 +87,31 @@ Browse and manage your sorted photos:
 3. **First launch**: Right-click the app → "Open" → click "Open" in the dialog
    (Required because the app isn't signed with an Apple Developer certificate)
 
-### Linux (Debian/Ubuntu)
-```bash
-# Download the .deb file, then:
-sudo dpkg -i ~/Downloads/Photo.Tinder_1.0.0_amd64.deb
+### Linux (Recommended: .deb or .rpm)
 
-# If there are missing dependencies:
-sudo apt-get install -f
+**Debian/Ubuntu** - easiest option, just run:
+```bash
+sudo dpkg -i ~/Downloads/Photo.Tinder_1.0.0_amd64.deb && sudo apt-get install -f
 ```
 
-### Linux (Fedora/RHEL)
+**Fedora/RHEL:**
 ```bash
 sudo rpm -i ~/Downloads/Photo.Tinder-1.0.0-1.x86_64.rpm
 ```
 
 ### Linux (AppImage - Universal)
-```bash
-# Make it executable
-chmod +x ~/Downloads/Photo.Tinder_1.0.0_amd64.AppImage
 
-# Run it
-~/Downloads/Photo.Tinder_1.0.0_amd64.AppImage
+AppImages need to be made executable before running (browsers strip this for security).
+
+**One-liner to download and run:**
+```bash
+curl -L https://github.com/relaxis/photo-tinder-desktop/releases/download/v1.0.0/Photo.Tinder_1.0.0_amd64.AppImage -o ~/Photo-Tinder.AppImage && chmod +x ~/Photo-Tinder.AppImage && ~/Photo-Tinder.AppImage
 ```
-The AppImage is self-contained and works on most Linux distributions without installation.
+
+**Or if already downloaded:**
+```bash
+chmod +x ~/Downloads/Photo.Tinder_1.0.0_amd64.AppImage && ~/Downloads/Photo.Tinder_1.0.0_amd64.AppImage
+```
 
 ## Building from Source
 

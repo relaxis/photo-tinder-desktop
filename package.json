@@ -1,0 +1,13 @@
+{
+  "name": "photo-tinder-desktop",
+  "version": "1.0.0",
+  "description": "Photo Tinder - Desktop App for triaging and ranking photos",
+  "scripts": {
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
+  }
+}

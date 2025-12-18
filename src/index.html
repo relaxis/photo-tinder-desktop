@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Photo Tinder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ============================================= -->
+    <!-- SETUP SCREEN (First Run) -->
+    <!-- ============================================= -->
+    <div id="setupScreen" class="setup-screen">
+        <div class="setup-container">
+            <h1>Welcome to Photo Tinder</h1>
+            <p class="setup-subtitle">Configure your folders to get started</p>
+
+            <div class="setup-section">
+                <h3>Source Folders</h3>
+                <p class="setup-hint">Add folders containing images to triage</p>
+                <div id="setupSourceFolders" class="setup-folders-list">
+                    <!-- Source folders will be listed here -->
+                </div>
+                <button id="setupAddSourceBtn" class="setup-btn add">+ Add Source Folder</button>
+            </div>
+
+            <div class="setup-section">
+                <h3>Destination Folders</h3>
+                <p class="setup-hint">Where to move accepted and rejected images</p>
+
+                <div class="setup-dest-row">
+                    <label>Accepted:</label>
+                    <span id="setupAcceptedDisplay" class="setup-folder-display">Not set</span>
+                    <button class="setup-btn browse" data-target="accepted">Browse</button>
+                </div>
+
+                <div class="setup-dest-row">
+                    <label>Rejected:</label>
+                    <span id="setupRejectedDisplay" class="setup-folder-display">Not set</span>
+                    <button class="setup-btn browse" data-target="rejected">Browse</button>
+                </div>
+            </div>
+
+            <button id="setupStartBtn" class="setup-start-btn" disabled>Start Triaging</button>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- MAIN APP -->
+    <!-- ============================================= -->
+    <div id="mainApp" class="container" style="display: none;">
+        <!-- Header with mode toggle -->
+        <header class="header">
+            <h1>Photo Tinder</h1>
+            <div class="mode-toggle">
+                <button id="triageModeBtn" class="mode-btn active">Triage</button>
+                <button id="rankingModeBtn" class="mode-btn">Ranking</button>
+            </div>
+            <button id="browsePhotosBtn" class="browse-photos-btn" title="Browse Photos">Browse</button>
+            <button id="refreshFoldersBtn" class="refresh-btn" title="Refresh Folders">&#8635;</button>
+            <button id="undoBtn" class="undo-btn" title="Undo (U or Up arrow)">Undo</button>
+            <button id="settingsBtn" class="settings-btn" title="Settings">&#9881;</button>
+        </header>
+
+        <!-- ============================================= -->
+        <!-- TRIAGE MODE -->
+        <!-- ============================================= -->
+        <div id="triageMode" class="mode-container">
+            <!-- Progress section -->
+            <div class="progress-section">
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+                <div class="progress-stats">
+                    <span id="progressText">0 / 0</span>
+                    <span>
+                        <span class="stat-accepted" id="acceptedCount">0</span> |
+                        <span class="stat-rejected" id="rejectedCount">0</span> |
+                        <span class="stat-skipped" id="skippedCount">0</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Main swipe area -->
+            <div class="swipe-container">
+                <div id="swipeCard" class="swipe-card">
+                    <div class="swipe-overlay swipe-overlay-accept">ACCEPT</div>
+                    <div class="swipe-overlay swipe-overlay-reject">REJECT</div>
+                    <div class="swipe-overlay swipe-overlay-skip">SKIP</div>
+                    <img id="currentImage" src="" alt="Current image" draggable="false">
+                </div>
+                <div id="doneMessage" class="done-message" style="display: none;">
+                    <h2>All Done!</h2>
+                    <p>You've triaged all images.</p>
+                </div>
+            </div>
+
+            <!-- Image info -->
+            <div class="image-info">
+                <span id="filename">Loading...</span>
+                <span id="sourceFolder" class="source-folder"></span>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="action-buttons">
+                <button id="rejectBtn" class="action-btn reject" title="Reject (Left arrow)">
+                    <span class="btn-icon">X</span>
+                </button>
+                <button id="skipBtn" class="action-btn skip" title="Skip (Down arrow or S)">
+                    <span class="btn-icon">?</span>
+                </button>
+                <button id="acceptBtn" class="action-btn accept" title="Accept (Right arrow)">
+                    <span class="btn-icon">O</span>
+                </button>
+            </div>
+
+            <!-- Keyboard hints -->
+            <div class="keyboard-hints">
+                <span><kbd>&larr;</kbd> Reject</span>
+                <span><kbd>&darr;</kbd> Skip</span>
+                <span><kbd>&rarr;</kbd> Accept</span>
+                <span><kbd>&uarr;</kbd> Undo</span>
+            </div>
+        </div>
+
+        <!-- ============================================= -->
+        <!-- RANKING MODE -->
+        <!-- ============================================= -->
+        <div id="rankingMode" class="mode-container" style="display: none;">
+            <!-- Ranking stats -->
+            <div class="ranking-stats">
+                <span id="comparisonsCount">0 comparisons</span>
+                <span id="photosRanked">0 photos</span>
+                <span id="rankingPhase">Phase: --</span>
+                <button id="rescanBtn" class="rescan-btn">Rescan</button>
+                <button id="leaderboardBtn" class="leaderboard-btn">Top 50</button>
+            </div>
+
+            <!-- Comparison area -->
+            <div class="comparison-container">
+                <div class="photo-panel left-panel" id="leftPanel">
+                    <img id="leftPhoto" src="" alt="Left photo" draggable="false">
+                    <div class="photo-score">
+                        <span id="leftMu">1500</span>
+                        <span class="sigma">&plusmn;<span id="leftSigma">350</span></span>
+                    </div>
+                </div>
+
+                <div class="vs-indicator">VS</div>
+
+                <div class="photo-panel right-panel" id="rightPanel">
+                    <img id="rightPhoto" src="" alt="Right photo" draggable="false">
+                    <div class="photo-score">
+                        <span id="rightMu">1500</span>
+                        <span class="sigma">&plusmn;<span id="rightSigma">350</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Done message for ranking -->
+            <div id="rankingDoneMessage" class="done-message" style="display: none;">
+                <h2>Ranking Complete!</h2>
+                <p>Check the leaderboard to see your top photos.</p>
+            </div>
+
+            <!-- Comparison buttons -->
+            <div class="ranking-buttons">
+                <button id="leftWinsBtn" class="rank-btn left-wins">
+                    <span class="key-hint">A</span>
+                    <span>Left Wins</span>
+                </button>
+                <button id="tieBtn" class="rank-btn tie">
+                    <span class="key-hint">S</span>
+                    <span>Tie</span>
+                </button>
+                <button id="rightWinsBtn" class="rank-btn right-wins">
+                    <span class="key-hint">D</span>
+                    <span>Right Wins</span>
+                </button>
+                <button id="skipCompareBtn" class="rank-btn skip-compare">
+                    <span class="key-hint">W</span>
+                    <span>Skip</span>
+                </button>
+            </div>
+
+            <!-- Ranking keyboard hints -->
+            <div class="keyboard-hints">
+                <span><kbd>A</kbd> Left</span>
+                <span><kbd>S</kbd> Tie</span>
+                <span><kbd>D</kbd> Right</span>
+                <span><kbd>W</kbd> Skip</span>
+                <span><kbd>U</kbd> Undo</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- RANKING INIT OVERLAY -->
+    <!-- ============================================= -->
+    <div id="rankingInitOverlay" class="overlay" style="display: none;">
+        <div class="overlay-content">
+            <h2>Initializing Ranking Mode</h2>
+            <p id="initStatus">Computing photo hashes and clustering...</p>
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- LEADERBOARD MODAL -->
+    <!-- ============================================= -->
+    <div id="leaderboardModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Top 50 Photos</h2>
+                <button id="closeLeaderboard" class="modal-close">&times;</button>
+            </div>
+            <div id="leaderboardGrid" class="leaderboard-grid">
+                <!-- Photos will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- PHOTO BROWSER MODAL -->
+    <!-- ============================================= -->
+    <div id="photoBrowserModal" class="modal" style="display: none;">
+        <div class="modal-content browser-photos-modal">
+            <div class="modal-header">
+                <h2 id="browserTitle">Browse Photos</h2>
+                <button id="closePhotoBrowser" class="modal-close">&times;</button>
+            </div>
+            <div class="browser-controls">
+                <div class="browser-tabs">
+                    <button id="browseAcceptedBtn" class="browser-tab active">Accepted</button>
+                    <button id="browseRejectedBtn" class="browser-tab">Rejected</button>
+                </div>
+                <div class="browser-sort">
+                    <label>Sort by:</label>
+                    <select id="browserSortSelect">
+                        <option value="ranking">Ranking (Best First)</option>
+                        <option value="ranking_asc">Ranking (Worst First)</option>
+                        <option value="recent">Most Recent</option>
+                        <option value="name">Filename</option>
+                    </select>
+                </div>
+            </div>
+            <div id="photoBrowserGrid" class="leaderboard-grid">
+                <!-- Photos will be inserted here -->
+            </div>
+            <div class="browser-pagination">
+                <button id="browserPrevBtn" class="pagination-btn" disabled>&larr; Previous</button>
+                <span id="browserPageInfo">Page 1</span>
+                <button id="browserNextBtn" class="pagination-btn">Next &rarr;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SETTINGS MODAL -->
+    <!-- ============================================= -->
+    <div id="settingsModal" class="modal" style="display: none;">
+        <div class="modal-content settings-modal">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button id="closeSettings" class="modal-close">&times;</button>
+            </div>
+
+            <!-- Destination Folders Section -->
+            <div class="settings-section">
+                <h3>Destination Folders</h3>
+                <div class="destination-folders">
+                    <div class="dest-folder-row">
+                        <label>Accepted:</label>
+                        <span id="acceptedFolderDisplay" class="folder-display">Not set</span>
+                        <button class="browse-btn" data-target="accepted">Browse</button>
+                    </div>
+                    <div class="dest-folder-row">
+                        <label>Rejected:</label>
+                        <span id="rejectedFolderDisplay" class="folder-display">Not set</span>
+                        <button class="browse-btn" data-target="rejected">Browse</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Source Folders Section -->
+            <div class="settings-section">
+                <h3>Source Folders</h3>
+                <div id="foldersList" class="folders-list">
+                    <!-- Folders will be inserted here -->
+                </div>
+                <button id="addSourceFolderBtn" class="add-source-btn">+ Add Source Folder</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- FOLDER BROWSER MODAL -->
+    <!-- ============================================= -->
+    <div id="folderBrowserModal" class="modal" style="display: none;">
+        <div class="modal-content browser-modal">
+            <div class="modal-header">
+                <h2>Select Folder</h2>
+                <button id="closeBrowser" class="modal-close">&times;</button>
+            </div>
+
+            <div class="browser-container">
+                <!-- Quick Access Sidebar -->
+                <div class="browser-sidebar">
+                    <h4>Quick Access</h4>
+                    <div id="quickAccessList" class="quick-access-list">
+                        <!-- Quick access items inserted here -->
+                    </div>
+                </div>
+
+                <!-- Main Browser Area -->
+                <div class="browser-main">
+                    <!-- Path Bar -->
+                    <div class="browser-path-bar">
+                        <button id="browserUpBtn" class="browser-nav-btn" title="Go up">&#8593;</button>
+                        <span id="browserCurrentPath" class="browser-current-path">/home</span>
+                    </div>
+
+                    <!-- Folder List -->
+                    <div id="browserFolderList" class="browser-folder-list">
+                        <!-- Folders inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="browser-actions">
+                <button id="browserCancelBtn" class="browser-action-btn cancel">Cancel</button>
+                <button id="browserSelectBtn" class="browser-action-btn select">Select This Folder</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- CONFIRM DELETE MODAL -->
+    <!-- ============================================= -->
+    <div id="confirmDeleteModal" class="modal" style="display: none;">
+        <div class="modal-content confirm-modal">
+            <h3>Remove Folder</h3>
+            <p>What should happen to existing decisions for photos in this folder?</p>
+            <div class="confirm-buttons">
+                <button id="keepDecisionsBtn" class="confirm-btn keep">Keep Decisions</button>
+                <button id="clearDecisionsBtn" class="confirm-btn clear">Clear Decisions</button>
+                <button id="cancelDeleteBtn" class="confirm-btn cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox overlay -->
+    <div id="lightbox" class="lightbox">
+        <button id="lightboxClose" class="lightbox-close">&times;</button>
+        <div class="lightbox-hint">Pinch to zoom, drag to pan</div>
+        <div id="lightboxContainer" class="lightbox-container">
+            <img id="lightboxImage" src="" alt="Zoomed image" draggable="false">
+        </div>
+    </div>
+
+    <script src="swipe.js"></script>
+    <script src="ranking.js"></script>
+</body>
+</html>

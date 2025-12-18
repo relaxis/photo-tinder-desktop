@@ -74,21 +74,42 @@ Browse and manage your sorted photos:
 | `W` | Skip comparison |
 | `U` | Undo |
 
-## Installation Notes
-
-### Linux AppImage
-```bash
-chmod +x Photo\ Tinder.AppImage
-./Photo\ Tinder.AppImage
-```
-
-### macOS
-The app is not signed with an Apple Developer certificate. On first launch:
-1. Right-click the app and select "Open"
-2. Click "Open" in the security dialog
+## Installation
 
 ### Windows
-If Windows Defender SmartScreen appears, click "More info" then "Run anyway".
+1. Download the `.exe` installer
+2. Run it and follow the prompts
+3. If SmartScreen appears, click "More info" → "Run anyway"
+
+### macOS
+1. Download the `.dmg` for your Mac (Apple Silicon or Intel)
+2. Open the `.dmg` and drag Photo Tinder to Applications
+3. **First launch**: Right-click the app → "Open" → click "Open" in the dialog
+   (Required because the app isn't signed with an Apple Developer certificate)
+
+### Linux (Debian/Ubuntu)
+```bash
+# Download the .deb file, then:
+sudo dpkg -i ~/Downloads/Photo.Tinder_1.0.0_amd64.deb
+
+# If there are missing dependencies:
+sudo apt-get install -f
+```
+
+### Linux (Fedora/RHEL)
+```bash
+sudo rpm -i ~/Downloads/Photo.Tinder-1.0.0-1.x86_64.rpm
+```
+
+### Linux (AppImage - Universal)
+```bash
+# Make it executable
+chmod +x ~/Downloads/Photo.Tinder_1.0.0_amd64.AppImage
+
+# Run it
+~/Downloads/Photo.Tinder_1.0.0_amd64.AppImage
+```
+The AppImage is self-contained and works on most Linux distributions without installation.
 
 ## Building from Source
 

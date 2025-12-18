@@ -296,10 +296,11 @@ body {
 .swipe-card img {
     display: block;
     max-width: 100%;
-    max-height: 60vh;
+    max-height: calc(100vh - 280px);
     border-radius: 12px;
     pointer-events: none;
     object-fit: contain;
+    cursor: pointer;
 }
 
 /* Swipe overlays */
@@ -380,6 +381,13 @@ body {
     background: #333;
     border-radius: 4px;
     font-size: 0.75rem;
+}
+
+.click-hint {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #555;
+    padding-bottom: 0.5rem;
 }
 
 /* Action buttons */
@@ -480,7 +488,11 @@ body {
     }
 
     .swipe-card img {
-        max-height: 55vh;
+        max-height: calc(100vh - 300px);
+    }
+
+    .click-hint {
+        display: none;
     }
 
     .action-btn {
@@ -506,7 +518,7 @@ body {
 /* Large screens */
 @media (min-height: 800px) {
     .swipe-card img {
-        max-height: 65vh;
+        max-height: calc(100vh - 260px);
     }
 }
 
